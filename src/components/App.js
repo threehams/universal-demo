@@ -5,37 +5,51 @@ import UsageHero from './UsageHero'
 import Loading from './Loading'
 import NotFound from './NotFound'
 import { pages, nextIndex, indexFromPath } from '../utils'
+import { Route, Link } from 'react-router-dom'
 
-const UniversalComponent = universal(props => import(`./${props.page}`), {
-  minDelay: 1200,
-  loading: Loading,
-  error: NotFound
-})
+const AsyncFoo = universal(() => import(`./Foo`))
+const AsyncBar = universal(() => import(`./Bar`))
+const AsyncBaz = universal(() => import(`./Baz`))
+const AsyncRudy = universal(() => import(`./Rudy`))
+const AsyncExample = universal(() => import(`./Example`))
+const AsyncReduxFirstRouter = universal(() => import(`./ReduxFirstRouter`))
+const AsyncUniversal = universal(() => import(`./Universal`))
+const AsyncFaceySpacey = universal(() => import(`./FaceySpacey`))
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      loading: false,
+      error: false
+    }
+  }
+
   render() {
-    const { index, done, loading } = this.state
-    const page = pages[index]
+    const { loading } = this.state
     const loadingClass = loading ? styles.loading : ''
-    const buttonClass = `${styles[page]} ${loadingClass}`
+    const buttonClass = `${loadingClass}`
 
     return (
       <div className={styles.container}>
         <h1>Hello Reactlandia</h1>
-        {done && <div className={styles.checkmark}>all loaded ✔</div>}
 
-        <UsageHero page={page} />
+        <UsageHero />
 
-        <UniversalComponent
-          page={page}
-          onBefore={this.beforeChange}
-          onAfter={this.afterChange}
-          onError={this.handleError}
-        />
+        <Route path="/" component={AsyncFoo} />
+        <Route path="/Foo" component={AsyncFoo} />
+        <Route path="/Bar" component={AsyncBar} />
+        <Route path="/Baz" component={AsyncBaz} />
+        <Route path="/Rudy" component={AsyncRudy} />
+        <Route path="/Example" component={AsyncExample} />
+        <Route path="/ReduxFirstRouter" component={AsyncReduxFirstRouter} />
+        <Route path="/Universal" component={AsyncUniversal} />
+        <Route path="/FaceySpacey" component={AsyncFaceySpacey} />
 
-        <button className={buttonClass} onClick={this.changePage}>
-          {this.buttonText()}
-        </button>
+        <Link to="/Bar" className={buttonClass}>
+          Change Page
+        </Link>
 
         <p>
           <span>*why are you looking at this? refresh the page</span>
@@ -43,58 +57,5 @@ export default class App extends React.Component {
         </p>
       </div>
     )
-  }
-
-  constructor(props) {
-    super(props)
-
-    const { history } = props
-    const index = indexFromPath(history.location.pathname)
-
-    this.state = {
-      index,
-      loading: false,
-      done: false,
-      error: false
-    }
-
-    history.listen(({ pathname }) => {
-      const index = indexFromPath(pathname)
-      this.setState({ index })
-    })
-  }
-
-  changePage = () => {
-    if (this.state.loading) return
-
-    const index = nextIndex(this.state.index)
-    const page = pages[index]
-
-    this.props.history.push(`/${page}`)
-  }
-
-  beforeChange = ({ isSync }) => {
-    if (!isSync) {
-      this.setState({ loading: true, error: false })
-    }
-  }
-
-  afterChange = ({ isSync, isServer, isMount }) => {
-    if (!isSync) {
-      this.setState({ loading: false, error: false })
-    }
-    else if (!isServer && !isMount) {
-      this.setState({ done: true, error: false })
-    }
-  }
-
-  handleError = error => {
-    this.setState({ error: true, loading: false })
-  }
-
-  buttonText() {
-    const { loading, error } = this.state
-    if (error) return 'ERROR'
-    return loading ? 'LOADING...' : 'CHANGE PAGE'
   }
 }

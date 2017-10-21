@@ -4,19 +4,21 @@ import createHistory from 'history/createMemoryHistory'
 import { flushChunkNames } from 'react-universal-component/server'
 import flushChunks from 'webpack-flush-chunks'
 import App from '../src/components/App'
+import { StaticRouter } from 'react-router'
 
 export default ({ clientStats }) => (req, res) => {
   const history = createHistory({ initialEntries: [req.path] })
-  const app = ReactDOM.renderToString(<App history={history} />)
+  const app = ReactDOM.renderToString(
+    <StaticRouter location={req.url} context={{}}>
+      <App />
+    </StaticRouter>
+  )
   const chunkNames = flushChunkNames()
 
-  const {
-    js,
-    styles,
-    cssHash,
-    scripts,
-    stylesheets
-  } = flushChunks(clientStats, { chunkNames })
+  const { js, styles, cssHash, scripts, stylesheets } = flushChunks(
+    clientStats,
+    { chunkNames }
+  )
 
   console.log('PATH', req.path)
   console.log('DYNAMIC CHUNK NAMES RENDERED', chunkNames)

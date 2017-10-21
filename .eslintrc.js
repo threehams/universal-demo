@@ -8,8 +8,8 @@ module.exports = {
     sourceType: 'module',
     allowImportExportEverywhere: false
   },
-  plugins: ['flowtype'],
-  extends: ['airbnb', 'plugin:flowtype/recommended'],
+  plugins: ['react', 'flowtype'],
+  extends: ['plugin:flowtype/recommended'],
   settings: {
     flowtype: {
       onlyFilesWithFlowAnnotation: true
@@ -59,7 +59,6 @@ module.exports = {
     'prefer-template': 1,
     'react/no-array-index-key': 1,
     'global-require': 1,
-    'react/jsx-indent': 1,
     'dot-notation': 1,
     'import/no-named-default': 1,
     'no-unused-vars': 1,
@@ -72,13 +71,7 @@ module.exports = {
     'jsx-a11y/img-has-alt': 1,
     'no-template-curly-in-string': 1,
     'react/jsx-no-target-blank': 1,
-    semi: [2, 'never'],
-    'flowtype/semi': [2, 'never'],
-    'jsx-quotes': [2, 'prefer-single'],
     'react/jsx-filename-extension': [2, { extensions: ['.jsx', '.js'] }],
-    'spaced-comment': [2, 'always', { markers: ['?'] }],
-    'arrow-parens': [2, 'as-needed', { requireForBlockBody: false }],
-    'brace-style': [2, 'stroustrup'],
     'import/no-unresolved': [1, { commonjs: true, caseSensitive: true }],
     'no-unused-expressions': [
       2,
@@ -94,46 +87,6 @@ module.exports = {
         devDependencies: true,
         optionalDependencies: true,
         peerDependencies: true
-      }
-    ],
-    'comma-dangle': [
-      2,
-      {
-        arrays: 'never',
-        objects: 'never',
-        imports: 'never',
-        exports: 'never',
-        functions: 'never'
-      }
-    ],
-    'max-len': [
-      'error',
-      {
-        code: 80,
-        tabWidth: 2,
-        ignoreUrls: true,
-        ignoreComments: true,
-        ignoreRegExpLiterals: true,
-        ignoreStrings: true,
-        ignoreTemplateLiterals: true
-      }
-    ],
-    'react/sort-comp': [
-      1,
-      {
-        order: [
-          'propTypes',
-          'props',
-          'state',
-          'defaultProps',
-          'contextTypes',
-          'childContextTypes',
-          'getChildContext',
-          'static-methods',
-          'lifecycle',
-          'everything-else',
-          'render'
-        ]
       }
     ],
     'linebreak-style': 0
