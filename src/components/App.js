@@ -5,18 +5,25 @@ import UsageHero from './UsageHero'
 import Loading from './Loading'
 import NotFound from './NotFound'
 import { pages, nextIndex, indexFromPath } from '../utils'
-import { Route, Link } from 'react-router-dom'
+import { Route, Link, withRouter } from 'react-router-dom'
 
-const AsyncFoo = universal(() => import(`./Foo`))
-const AsyncBar = universal(() => import(`./Bar`))
-const AsyncBaz = universal(() => import(`./Baz`))
-const AsyncRudy = universal(() => import(`./Rudy`))
-const AsyncExample = universal(() => import(`./Example`))
-const AsyncReduxFirstRouter = universal(() => import(`./ReduxFirstRouter`))
-const AsyncUniversal = universal(() => import(`./Universal`))
-const AsyncFaceySpacey = universal(() => import(`./FaceySpacey`))
+const UniversalComponent = universal(props => import(`./${props.name}`))
 
-export default class App extends React.Component {
+const loadComponent = name => props => (
+  <UniversalComponent {...props} name={name} />
+)
+const routes = [
+  'Foo',
+  'Bar',
+  'Baz',
+  'Rudy',
+  'Example',
+  'ReduxFirstRouter',
+  'Universal',
+  'FaceySpacey'
+]
+
+class App extends React.Component {
   constructor(props) {
     super(props)
 
@@ -27,6 +34,7 @@ export default class App extends React.Component {
   }
 
   render() {
+    const { history, location } = this.props
     const { loading } = this.state
     const loadingClass = loading ? styles.loading : ''
     const buttonClass = `${loadingClass}`
@@ -37,19 +45,14 @@ export default class App extends React.Component {
 
         <UsageHero />
 
-        <Route path="/" component={AsyncFoo} />
-        <Route path="/Foo" component={AsyncFoo} />
-        <Route path="/Bar" component={AsyncBar} />
-        <Route path="/Baz" component={AsyncBaz} />
-        <Route path="/Rudy" component={AsyncRudy} />
-        <Route path="/Example" component={AsyncExample} />
-        <Route path="/ReduxFirstRouter" component={AsyncReduxFirstRouter} />
-        <Route path="/Universal" component={AsyncUniversal} />
-        <Route path="/FaceySpacey" component={AsyncFaceySpacey} />
+        <Route exact path="/" render={loadComponent('Foo')} />
+        {routes.map(name => (
+          <Route key={name} path={`/${name}`} render={loadComponent(name)} />
+        ))}
 
-        <Link to="/Bar" className={buttonClass}>
+        <button onClick={() => history.push("/Bar")}>
           Change Page
-        </Link>
+        </button>
 
         <p>
           <span>*why are you looking at this? refresh the page</span>
@@ -59,3 +62,5 @@ export default class App extends React.Component {
     )
   }
 }
+
+export default withRouter(App);

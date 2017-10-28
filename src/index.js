@@ -5,7 +5,7 @@ import App from './components/App'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 const render = App =>
-  ReactDOM.render(
+  ReactDOM.hydrate(
     <AppContainer>
       <Router>
         <App />

@@ -24,7 +24,7 @@ module.exports = {
         use: 'babel-loader'
       },
       {
-        test: /\.styl$/,
+        test: /\.css$/,
         exclude: /node_modules/,
         use: [
           {
@@ -34,15 +34,12 @@ module.exports = {
               localIdentName: '[name]__[local]--[hash:base64:5]'
             }
           },
-          {
-            loader: 'stylus-loader'
-          }
         ]
       }
     ]
   },
   resolve: {
-    extensions: ['.js', '.css', '.styl']
+    extensions: ['.js', '.css']
   },
   plugins: [
     new webpack.optimize.LimitChunkCountPlugin({

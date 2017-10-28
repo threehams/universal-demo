@@ -17,7 +17,10 @@ export default ({ clientStats }) => (req, res) => {
 
   const { js, styles, cssHash, scripts, stylesheets } = flushChunks(
     clientStats,
-    { chunkNames }
+    {
+      chunkNames,
+      after: ['main']
+    }
   )
 
   console.log('PATH', req.path)

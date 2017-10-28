@@ -1,12 +1,11 @@
 const path = require('path')
 const webpack = require('webpack')
-const WriteFilePlugin = require('write-file-webpack-plugin') // here so you can see what chunks are built
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin')
+const WriteFilePlugin = require('write-file-webpack-plugin') // here so you can see what chunks are built
 
 module.exports = {
   name: 'client',
   target: 'web',
-  // devtool: 'source-map',
   devtool: 'eval',
   entry: [
     'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=false&quiet=false&noInfo=false',
@@ -27,7 +26,7 @@ module.exports = {
         use: 'babel-loader'
       },
       {
-        test: /\.styl$/,
+        test: /\.css$/,
         use: ExtractCssChunks.extract({
           use: [
             {
@@ -37,16 +36,13 @@ module.exports = {
                 localIdentName: '[name]__[local]--[hash:base64:5]'
               }
             },
-            {
-              loader: 'stylus-loader'
-            }
           ]
         })
       }
     ]
   },
   resolve: {
-    extensions: ['.js', '.css', '.styl']
+    extensions: ['.js', '.css']
   },
   plugins: [
     new WriteFilePlugin(),

@@ -21,7 +21,7 @@ module.exports = {
         use: 'babel-loader'
       },
       {
-        test: /\.styl$/,
+        test: /\.css$/,
         use: ExtractCssChunks.extract({
           use: [
             {
@@ -31,16 +31,13 @@ module.exports = {
                 localIdentName: '[name]__[local]--[hash:base64:5]'
               }
             },
-            {
-              loader: 'stylus-loader'
-            }
           ]
         })
       }
     ]
   },
   resolve: {
-    extensions: ['.js', '.css', '.styl']
+    extensions: ['.js', '.css']
   },
   plugins: [
     new ExtractCssChunks(),
