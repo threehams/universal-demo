@@ -7,7 +7,9 @@ import NotFound from './NotFound'
 import { pages, nextIndex, indexFromPath } from '../utils'
 import { Route, Link, withRouter } from 'react-router-dom'
 
-const UniversalComponent = universal(props => import(`./${props.name}`))
+const UniversalComponent = universal(props =>
+  import(`./${props.name}`).then(module => console.log(module))
+)
 
 const loadComponent = name => props => (
   <UniversalComponent {...props} name={name} />
@@ -50,9 +52,7 @@ class App extends React.Component {
           <Route key={name} path={`/${name}`} render={loadComponent(name)} />
         ))}
 
-        <button onClick={() => history.push("/Bar")}>
-          Change Page
-        </button>
+        <button onClick={() => history.push('/Bar')}>Change Page</button>
 
         <p>
           <span>*why are you looking at this? refresh the page</span>
@@ -63,4 +63,4 @@ class App extends React.Component {
   }
 }
 
-export default withRouter(App);
+export default withRouter(App)
