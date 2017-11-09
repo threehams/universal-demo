@@ -63,12 +63,5 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "lint-staged": {
-    "*.js": [
-      "prettier --single-quote --semi=false --write",
-      "eslint --fix",
-      "git add"
-    ]
   }
 }

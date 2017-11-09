@@ -1,45 +1,45 @@
-const path = require('path')
-const webpack = require('webpack')
+const path = require("path");
+const webpack = require("webpack");
 
-const res = p => path.resolve(__dirname, p)
+const res = p => path.resolve(__dirname, p);
 
-const entry = res('../server/render.js')
-const output = res('../buildServer')
+const entry = res("../server/render.js");
+const output = res("../buildServer");
 
 module.exports = {
-  name: 'server',
-  target: 'node',
-  devtool: 'source-map',
+  name: "server",
+  target: "node",
+  devtool: "source-map",
   entry: [entry],
   output: {
     path: output,
-    filename: '[name].js',
-    libraryTarget: 'commonjs2'
+    filename: "[name].js",
+    libraryTarget: "commonjs2"
   },
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: 'babel-loader'
+        use: "babel-loader"
       },
       {
         test: /\.css$/,
         exclude: /node_modules/,
         use: [
           {
-            loader: 'css-loader/locals',
+            loader: "css-loader/locals",
             options: {
               modules: true,
-              localIdentName: '[name]__[local]--[hash:base64:5]'
+              localIdentName: "[name]__[local]--[hash:base64:5]"
             }
-          },
+          }
         ]
       }
     ]
   },
   resolve: {
-    extensions: ['.js', '.css']
+    extensions: [".js", ".css"]
   },
   plugins: [
     new webpack.optimize.LimitChunkCountPlugin({
@@ -47,9 +47,9 @@ module.exports = {
     }),
 
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production')
+      "process.env": {
+        NODE_ENV: JSON.stringify("production")
       }
     })
   ]
-}
+};
