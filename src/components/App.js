@@ -1,43 +1,36 @@
-import React from 'react'
-import universal from 'react-universal-component'
-import styles from '../css/App'
-import UsageHero from './UsageHero'
-import Loading from './Loading'
-import NotFound from './NotFound'
-import { pages, nextIndex, indexFromPath } from '../utils'
-import { Route, Link, withRouter } from 'react-router-dom'
+import React from "react";
+import universal from "react-universal-component";
+import styles from "../css/App";
+import UsageHero from "./UsageHero";
+import { Route, withRouter } from "react-router-dom";
 
-const UniversalComponent = universal(props => import(`./${props.name}`))
+const UniversalComponent = universal(props => import(`./${props.name}`));
 
 const loadComponent = name => props => (
   <UniversalComponent {...props} name={name} />
-)
+);
 const routes = [
-  'Foo',
-  'Bar',
-  'Baz',
-  'Rudy',
-  'Example',
-  'ReduxFirstRouter',
-  'Universal',
-  'FaceySpacey'
-]
+  "Foo",
+  "Bar",
+  "Baz",
+  "Rudy",
+  "Example",
+  "ReduxFirstRouter",
+  "Universal",
+  "FaceySpacey",
+];
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
-      loading: false,
-      error: false
-    }
+      error: false,
+    };
   }
 
   render() {
-    const { history, location } = this.props
-    const { loading } = this.state
-    const loadingClass = loading ? styles.loading : ''
-    const buttonClass = `${loadingClass}`
+    const { history, location } = this.props;
 
     return (
       <div className={styles.container}>
@@ -45,12 +38,19 @@ class App extends React.Component {
 
         <UsageHero />
 
-        <Route exact path="/" render={loadComponent('Foo')} />
+        <Route exact path="/" render={loadComponent("Foo")} />
         {routes.map(name => (
-          <Route key={name} path={`/${name}`} render={loadComponent(name)} />
+          <Route
+            exact
+            key={name}
+            path={`/${name}`}
+            render={loadComponent(name)}
+          />
         ))}
 
-        <button onClick={() => history.push("/Bar")}>
+        <button
+          onClick={() => history.push(nextRoute(routes, location.pathname))}
+        >
           Change Page
         </button>
 
@@ -59,8 +59,16 @@ class App extends React.Component {
           <span>and view the source in Chrome for the real goods</span>
         </p>
       </div>
-    )
+    );
   }
 }
+
+const nextRoute = (routes, path) => {
+  if (path === "/") {
+    path = routes[0];
+  }
+  const newIndex = routes.indexOf(path.replace("/", "")) + 1;
+  return routes[newIndex] || routes[0];
+};
 
 export default withRouter(App);

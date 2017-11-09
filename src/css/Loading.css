@@ -374,12 +374,12 @@
   background: #141414;
   border-radius: 50%;
   box-sizing: border-box;
-  background: linear-gradient(to right, #dcdcdc 10%, rgba(55,55,55,0) 42%);
+  background: linear-gradient(to right, #dcdcdc 10%, rgba(55, 55, 55, 0) 42%);
   animation: spin 1.4s infinite linear;
   transform: translateZ(0);
 }
 .spinner div:before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -389,7 +389,7 @@
   border-radius: 100% 0 0 0;
 }
 .spinner div:after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;

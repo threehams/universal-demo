@@ -1,32 +1,31 @@
-import React from 'react'
-import ReactDOM from 'react-dom/server'
-import createHistory from 'history/createMemoryHistory'
-import { flushChunkNames } from 'react-universal-component/server'
-import flushChunks from 'webpack-flush-chunks'
-import App from '../src/components/App'
-import { StaticRouter } from 'react-router'
+import React from "react";
+import ReactDOM from "react-dom/server";
+import { flushChunkNames } from "react-universal-component/server";
+import flushChunks from "webpack-flush-chunks";
+import { StaticRouter } from "react-router";
+
+import App from "../src/components/App";
 
 export default ({ clientStats }) => (req, res) => {
-  const history = createHistory({ initialEntries: [req.path] })
   const app = ReactDOM.renderToString(
     <StaticRouter location={req.url} context={{}}>
       <App />
-    </StaticRouter>
-  )
-  const chunkNames = flushChunkNames()
+    </StaticRouter>,
+  );
+  const chunkNames = flushChunkNames();
 
   const { js, styles, cssHash, scripts, stylesheets } = flushChunks(
     clientStats,
     {
       chunkNames,
-      after: ['main']
-    }
-  )
+      before: ["manifest"],
+    },
+  );
 
-  console.log('PATH', req.path)
-  console.log('DYNAMIC CHUNK NAMES RENDERED', chunkNames)
-  console.log('SCRIPTS SERVED', scripts)
-  console.log('STYLESHEETS SERVED', stylesheets)
+  console.log("PATH", req.path);
+  console.log("DYNAMIC CHUNK NAMES RENDERED", chunkNames);
+  console.log("SCRIPTS SERVED", scripts);
+  console.log("STYLESHEETS SERVED", stylesheets);
 
   res.send(
     `<!doctype html>
@@ -41,6 +40,6 @@ export default ({ clientStats }) => (req, res) => {
           ${cssHash}
           ${js}
         </body>
-      </html>`
-  )
-}
+      </html>`,
+  );
+};
