@@ -1,0 +1,147 @@
+.container button.Foo {
+  color: #800080;
+}
+.container button.Bar {
+  color: #ff5400;
+}
+.container button.Baz {
+  color: #008000;
+}
+.container button.Rudy {
+  color: #ffbe00;
+}
+.container button.Example {
+  color: #008080;
+}
+.container button.ReduxFirstRouter {
+  color: #00f;
+}
+.container button.Universal {
+  color: #000;
+}
+.container button.FaceySpacey {
+  color: #eb4e91;
+}
+.container button.loading.Foo {
+  color: #800080 !important;
+}
+.container button.loading.Bar {
+  color: #ff5400 !important;
+}
+.container button.loading.Baz {
+  color: #008000 !important;
+}
+.container button.loading.Rudy {
+  color: #ffbe00 !important;
+}
+.container button.loading.Example {
+  color: #008080 !important;
+}
+.container button.loading.ReduxFirstRouter {
+  color: #00f !important;
+}
+.container button.loading.Universal {
+  color: #000 !important;
+}
+.container button.loading.FaceySpacey {
+  color: #eb4e91 !important;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+}
+.container h1 {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  --x-height-multiplier: 0.363;
+  --baseline-multiplier: 0.157;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Arial, sans-serif;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  font-style: normal;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  margin: 0px;
+  color: #fff1fe;
+}
+.container .checkmark {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  --x-height-multiplier: 0.363;
+  --baseline-multiplier: 0.157;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Arial, sans-serif;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  font-style: normal;
+  color: #fff;
+  font-size: 42px;
+}
+.container button {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  --x-height-multiplier: 0.363;
+  --baseline-multiplier: 0.157;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Arial, sans-serif;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  font-style: normal;
+  height: 100px;
+  width: 360px;
+  font-size: 32px;
+  border-radius: 0px;
+  border: 0px transparent;
+  background: #fff1fe;
+  box-shadow: 2px 3px 2px 2px rgba(58,58,58,0.3);
+  outline: none;
+  cursor: pointer;
+  transition: all 200ms;
+}
+.container button:hover {
+  box-shadow: 2px 3px 45px 10px rgba(58,58,58,0.3);
+  transform: translateY(-3px) scale(1.01);
+}
+.container button:active {
+  box-shadow: none;
+  transform: translateY(0px) scale(1);
+  background: rgba(0,0,0,0.15);
+  color: #fff1fe !important;
+}
+.container button.loading {
+  background: rgba(25,25,25,0.6);
+  box-shadow: none;
+  transform: translateY(0px) scale(1);
+  cursor: default;
+}
+.container p {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  margin: 0;
+}
+.container p span {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  --x-height-multiplier: 0.363;
+  --baseline-multiplier: 0.157;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Arial, sans-serif;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  font-style: normal;
+  display: block;
+  color: rgba(255,255,255,0.6);
+  font-size: 16;
+}
+.container p span:nth-child(2) {
+  text-indent: 8px;
+}

@@ -10,10 +10,10 @@
 
 This is a demo of how to use the *Universal* family of packages:
 
-- [react-universal-component](https://github.com/faceyspacey/react-universal-component) 
+- [react-universal-component](https://github.com/faceyspacey/react-universal-component)
 - [webpack-flush-chunks](https://github.com/faceyspacey/webpack-flush-chunks)
 - [extract-css-chunks-webpack-plugin](https://github.com/faceyspacey/extract-css-chunks-webpack-plugin)
-- [babel-plugin-universal-import](https://github.com/faceyspacey/babel-plugin-universal-import) 
+- [babel-plugin-universal-import](https://github.com/faceyspacey/babel-plugin-universal-import)
 
 Feel free to use it as a boilerpate.
 
@@ -37,7 +37,7 @@ yarn start
 - edit the components to see that HMR works--even for split chunks.
 - edit and save the CSS files to confirm HMR works for CSS as well, thanks to [extract-css-chunks-webpack-plugin](https://github.com/faceyspacey/extract-css-chunks-webpack-plugin)
 
-- examine the build folders to see exactly what chunks and files are built for you 
+- examine the build folders to see exactly what chunks and files are built for you
 
 
 
