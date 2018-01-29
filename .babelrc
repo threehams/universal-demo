@@ -1,6 +1,10 @@
 {
-  "presets": ["es2015", "react", "stage-2"],
-  "plugins": ["universal-import"],
+  "presets": ["@babel/preset-env", "@babel/preset-react"],
+  "plugins": [
+    "universal-import",
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-proposal-class-properties"
+  ],
   "env": {
     "development": {
       "plugins": ["react-hot-loader/babel"]
