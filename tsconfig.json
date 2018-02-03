@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "experimentalDecorators": false,
+    "jsx": "react",
+    "module": "commonjs",
+    "outDir": "tsDist",
+    "target": "es5",
+    "moduleResolution": "node",
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    // "suppressImplicitAnyIndexErrors": true,
+    "lib": ["es2015", "dom"],
+    // note that the next two might be very annoying
+    "noUnusedLocals": true,
+    "noUnusedParameters": false
+  }
+}
