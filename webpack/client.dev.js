@@ -10,7 +10,7 @@ module.exports = {
   entry: [
     "webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=false&quiet=false&noInfo=false",
     "react-hot-loader/patch",
-    path.resolve(__dirname, "../src/index.js"),
+    path.resolve(__dirname, "../src/index.tsx"),
   ],
   output: {
     filename: "[name].js",
@@ -21,7 +21,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(ts|tsx|js)$/,
         exclude: /node_modules/,
         use: "babel-loader",
       },
@@ -42,7 +42,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".js", ".css"],
+    extensions: [".js", ".css", ".ts", ".tsx"],
   },
   plugins: [
     new ExtractCssChunks(),

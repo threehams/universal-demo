@@ -1,5 +1,9 @@
 {
-  "presets": ["@babel/preset-env", "@babel/preset-react"],
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react",
+    "@babel/preset-typescript"
+  ],
   "plugins": [
     "universal-import",
     "@babel/plugin-syntax-dynamic-import",

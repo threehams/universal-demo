@@ -6,7 +6,7 @@ module.exports = {
   name: "client",
   target: "web",
   devtool: "source-map",
-  entry: [path.resolve(__dirname, "../src/index.js")],
+  entry: [path.resolve(__dirname, "../src/index.tsx")],
   output: {
     filename: "[name].[chunkhash].js",
     chunkFilename: "[name].[chunkhash].js",
@@ -16,7 +16,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(ts|tsx|js)$/,
         exclude: /node_modules/,
         use: "babel-loader",
       },
@@ -37,7 +37,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".js", ".css"],
+    extensions: [".js", ".css", ".ts", ".tsx"],
   },
   plugins: [
     new ExtractCssChunks(),

@@ -3,7 +3,7 @@ const webpack = require("webpack");
 
 const res = p => path.resolve(__dirname, p);
 
-const entry = res("../server/render.js");
+const entry = res("../server/render.tsx");
 const output = res("../buildServer");
 
 module.exports = {
@@ -19,7 +19,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(ts|tsx|js)$/,
         exclude: /node_modules/,
         use: "babel-loader",
       },
@@ -39,7 +39,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".js", ".css"],
+    extensions: [".js", ".css", ".ts", ".tsx"],
   },
   plugins: [
     new webpack.optimize.LimitChunkCountPlugin({
