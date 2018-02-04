@@ -9,8 +9,8 @@
     "moduleResolution": "node",
     "strict": true,
     "allowSyntheticDefaultImports": true,
-    // "suppressImplicitAnyIndexErrors": true,
-    "lib": ["es2015", "dom"],
+    "suppressImplicitAnyIndexErrors": true,
+    "lib": ["es2015", "es2016", "es2017", "dom"],
     // note that the next two might be very annoying
     "noUnusedLocals": true,
     "noUnusedParameters": false

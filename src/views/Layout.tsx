@@ -1,10 +1,10 @@
-import * as React from "react";
-import Radium = require("radium");
+import React from "react";
+import Radium from "radium";
 import { connect } from "react-redux";
 
 import { Icon, Panel, PanelContainer, Tab, TabContainer } from "../components/";
 import { StatusEffect } from "../components/StatusEffect";
-import { State } from "../records";
+import { State } from "../models";
 import { Editor } from "./Editor";
 import { Inventory } from "./Inventory";
 import { Player } from "./Player";
