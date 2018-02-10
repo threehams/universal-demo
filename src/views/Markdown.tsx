@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { CSSProperties } from "react";
 import { StatusEffect } from "../components/StatusEffect";
 
 import colors from "../styles/colors";
@@ -151,14 +151,14 @@ export class MarkdownBlockQuote extends React.Component<{}, {}> {
 
   public render() {
     return (
-      <blockquote style={Object.assign({}, styles.all, styles.blockquote)}>
+      <blockquote style={{ ...styles.all, ...styles.blockquote }}>
         <StatusEffect>"{this.props.children}"</StatusEffect>
       </blockquote>
     );
   }
 }
 
-const styles = {
+const styles: { [key: string]: CSSProperties } = {
   all: {
     fontStyle: "normal",
     fontWeight: "normal",

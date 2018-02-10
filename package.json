@@ -12,6 +12,7 @@
     "clean": "rimraf buildClient buildServer"
   },
   "dependencies": {
+    "@babel/preset-stage-3": "^7.0.0-beta.39",
     "colors": "^1.1.2",
     "enzyme": "^3.3.0",
     "express": "^4.16.2",
@@ -23,11 +24,13 @@
     "react-dnd": "^2.5.4",
     "react-dnd-html5-backend": "^2.5.4",
     "react-dom": "^16.2.0",
+    "react-markdown": "^3.1.5",
     "react-redux": "^5.0.6",
     "react-universal-component": "^2.8.2",
+    "recompose": "^0.26.0",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
-    "webpack-dev-middleware": "^2.0.4",
+    "webpack-dev-middleware": "^2.0.5",
     "webpack-flush-chunks": "^1.2.3"
   },
   "devDependencies": {
@@ -39,7 +42,7 @@
     "@babel/preset-react": "^7.0.0-beta.39",
     "@babel/preset-typescript": "^7.0.0-beta.39",
     "@types/enzyme": "^3.1.8",
-    "@types/lodash": "^4.14.100",
+    "@types/lodash": "^4.14.102",
     "@types/radium": "^0.18.23",
     "@types/react": "^16.0.36",
     "@types/react-dnd": "^2.0.34",
@@ -47,6 +50,7 @@
     "@types/react-dom": "^16.0.3",
     "@types/react-hot-loader": "^3.0.5",
     "@types/react-redux": "^5.0.14",
+    "@types/recompose": "^0.24.4",
     "babel-loader": "v8.0.0-beta.0",
     "babel-plugin-universal-import": "^1.4.0",
     "babel-watch": "^2.0.7",

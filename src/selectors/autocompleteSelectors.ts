@@ -26,22 +26,22 @@ const defaultFilters = [
 ];
 
 function applyAllowedOwners(objects: AutocompleteItem[], owners: string[]) {
-  if (!owners.size) {
+  if (!owners.length) {
     return objects;
   }
 
   return objects.filter(object => {
-    return object instanceof Entity && owners.contains(object.owner);
+    return object instanceof Entity && owners.includes(object.owner);
   });
 }
 
 function applyAllowedStates(objects: AutocompleteItem[], states: string[]) {
-  if (!states.size) {
+  if (!states.length) {
     return objects;
   }
 
   return objects.filter(object => {
-    return object instanceof Entity && !!states.intersect(object.states).size;
+    return object instanceof Entity && !!states.intersect(object.states).length;
   });
 }
 
@@ -53,12 +53,12 @@ function applyAllowedComponents(
     return objects;
   }
 
-  // Allow object if it contains any of the expected components.
+  // Allow object if it includes any of the expected components.
   return objects.filter(object => {
     if (
       !(object instanceof Entity) ||
       !object.components ||
-      !object.components.size
+      !object.components.length
     ) {
       return false;
     }
@@ -98,14 +98,12 @@ function applyAllowedTypes(
  * Filter objects based on different attributes within records.
  */
 export function applyAllowed(objects: AutocompleteItem[], allowed: Allowed) {
-  if (allowed.names.size) {
-    return List(
-      allowed.names.map((name: string) => {
-        return new Command({
-          name,
-        });
-      }),
-    );
+  if (allowed.names.length) {
+    return allowed.names.map((name: string) => {
+      return {
+        name,
+      };
+    });
   }
 
   return applyAllowedOwners(
@@ -157,16 +155,12 @@ const commandAllowed = createSelector(
     const rootCommand = available.find(command => {
       return command.name === parts[0];
     });
-    if (!rootCommand || !rootCommand.parts.size) {
+    if (!rootCommand || !rootCommand.parts.length) {
       return null;
     }
 
     // now figure out what part we're in and return the "allowed" for that part
-    return rootCommand.getIn([
-      "parts",
-      currentPartIndex(parts, cursorIndex),
-      "allowed",
-    ]);
+    return rootCommand.parts[currentPartIndex(parts, cursorIndex)].allowed;
   },
 );
 
@@ -225,7 +219,7 @@ export const availableOptions = createSelector(
   commandAllowed,
   sortedOptions,
   (fragment, allowed, options) => {
-    if (!allowed || !allowed.size) {
+    if (!allowed || !allowed.length) {
       return [];
     }
 
@@ -256,7 +250,7 @@ export const selectedOption = createSelector(
   availableOptions,
   (state: State) => state.command.autocompleteSelectedItem,
   (options, selected) => {
-    if (options.contains(selected)) {
+    if (options.includes(selected)) {
       return selected;
     }
     return options.first();

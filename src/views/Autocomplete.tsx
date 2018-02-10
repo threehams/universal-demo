@@ -1,9 +1,7 @@
-import * as React from "react";
-import pure from "recompose/pure";
-import withHandlers from "recompose/withHandlers";
+import React, { CSSProperties } from "react";
+import { pure, withHandlers } from "recompose";
 
 import { AutocompleteItem } from "../models";
-
 import { StatusEffect } from "../components/StatusEffect";
 
 export function splitOption(option: string, fragment: string) {
@@ -93,7 +91,7 @@ export const Autocomplete = withHandlers<
   AutocompleteBaseProps
 >({})(pure(AutocompleteBase));
 
-const styles = {
+const styles: { [key: string]: CSSProperties } = {
   footer: {
     backgroundColor: "#e8e8e8",
     color: "black",

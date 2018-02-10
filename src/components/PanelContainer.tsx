@@ -2,7 +2,7 @@
 // This needs to be completely rethought before better type checking can be used
 import * as React from "react";
 import { Children, cloneElement, Component } from "react";
-import Radium = require("radium");
+import Radium from "radium";
 
 import panelStyles from "../styles/panel";
 import { PanelResizer } from "./";

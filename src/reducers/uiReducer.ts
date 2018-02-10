@@ -1,4 +1,3 @@
-import { Map, OrderedSet } from "immutable";
 import { mergeWith, union, without } from "lodash";
 
 import {
@@ -114,11 +113,8 @@ function addView(state: Ui, id: string): Ui {
   };
 }
 
-function toggleSetItem(
-  state: OrderedSet<string>,
-  id: string,
-): OrderedSet<string> {
-  return state.includes(id) ? state.remove(id) : state.add(id);
+function toggleSetItem(state: string[], id: string): string[] {
+  return state.includes(id) ? without(state, id) : state.concat(id);
 }
 
 function removeView(state: Ui, id: string): Ui {
@@ -143,7 +139,7 @@ function setState(state: Ui, action: SetState): Ui {
 
   const withEffects = setStatusEffects(entitiesRemoved, action);
   // If player or location are provided, merge them into the state
-  const newState = Map({ player: action.payload.player });
+  const newState = { player: action.payload.player };
   return mergeWith(withEffects, newState, (prev, next) => next || prev);
 }
 

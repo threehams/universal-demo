@@ -1,10 +1,9 @@
-import * as React from "react";
-import Radium = require("radium");
-import pure from "recompose/pure";
+import React, { CSSProperties } from "react";
+import Radium from "radium";
+import { pure } from "recompose";
 
 import { TerminalHistory } from "./TerminalHistory";
 import { TerminalPrompt } from "./TerminalPrompt";
-
 import fontStyles from "../styles/font";
 
 export const TerminalBase: React.StatelessComponent<{}> = () => (
@@ -18,7 +17,7 @@ export const TerminalBase: React.StatelessComponent<{}> = () => (
 
 export const Terminal = pure(Radium(TerminalBase));
 
-const styles = {
+const styles: { [key: string]: CSSProperties } = {
   terminal: Object.assign(
     {
       display: "flex",

@@ -1,5 +1,5 @@
 import * as React from "react";
-import Radium = require("radium");
+import Radium from "radium";
 
 interface PanelProps {
   type: string;
@@ -8,7 +8,7 @@ interface PanelProps {
 
 const PanelBase: React.StatelessComponent<PanelProps> = ({
   children,
-  style
+  style,
 }) => <div style={style}>{children}</div>;
 
 export const Panel = Radium(PanelBase);

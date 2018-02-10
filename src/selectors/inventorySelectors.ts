@@ -1,49 +1,50 @@
-import { List, Map } from "immutable";
 import { createSelector } from "reselect";
-import { Entity } from "../records";
+import { flatMap } from "lodash";
+
+import { Entity } from "../models";
 import * as entitySelectors from "./entitySelectors";
 
-type EntityList = List<Entity>;
-type OwnerEntityMap = Map<string, EntityList>;
+type OwnerEntityMap = { [key: string]: Entity[] };
 
 export const list = createSelector(
   entitySelectors.entitiesWithPath,
   state => state.ui,
   state => state.location,
   (entities, ui, location): OwnerEntityMap => {
-    const floorEntities = entityIds("floor").flatMap(entityId =>
-      addUiData(entityId, 1)
+    const floorEntities = flatMap(entityIds("floor"), entityId =>
+      addUiData(entityId, 1),
     );
-    const selfEntities = entityIds("self").flatMap(entityId =>
-      addUiData(entityId, 1)
+    const selfEntities = flatMap(entityIds("self"), entityId =>
+      addUiData(entityId, 1),
     );
-    return Map({
+    return {
       floor: floorEntities,
-      self: selfEntities
-    });
+      self: selfEntities,
+    };
 
-    function addUiData(entityId: string, indent: number): List<Entity> {
-      const expanded = ui.inventoryExpandedById.contains(entityId);
-      const newEntity = entities.get(entityId).merge({
+    function addUiData(entityId: string, indent: number): Entity[] {
+      const expanded = ui.inventoryExpandedById.includes(entityId);
+      const newEntity = {
+        ...entities[entityId],
         indent,
-        selected: ui.selectedItems.contains(entityId),
-        expanded
-      });
+        selected: ui.selectedItems.includes(entityId),
+        expanded,
+      };
       if (!expanded) {
-        return List([newEntity]);
+        return [newEntity];
       }
-      return List([newEntity]).concat(
-        newEntity.entities.flatMap(id => addUiData(id, indent + 1))
+      return [newEntity].concat(
+        flatMap(newEntity.entities, id => addUiData(id, indent + 1)),
       );
     }
 
-    function entityIds(owner: "self" | "floor"): List<string> {
+    function entityIds(owner: "self" | "floor"): string[] {
       if (owner === "self") {
-        return entities.getIn([ui.player, "entities"]) || List([]);
+        return entities.ui.player.entities || [];
       } else if (owner === "floor") {
-        return location.entities || List([]);
+        return location.entities || [];
       }
-      return List([]);
+      return [];
     }
-  }
+  },
 );

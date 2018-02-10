@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import Radium = require("radium");
+import Radium from "radium";
 
 import * as editorActions from "../actions/editorActions";
 import * as inventoryActions from "../actions/inventoryActions";

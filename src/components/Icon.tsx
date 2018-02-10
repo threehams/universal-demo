@@ -1,5 +1,5 @@
 import * as React from "react";
-import Radium = require("radium");
+import Radium from "radium";
 
 interface IconProps {
   name: string;
@@ -11,7 +11,7 @@ interface IconProps {
 export const IconBase: React.StatelessComponent<IconProps> = ({
   name,
   before,
-  style
+  style,
 }) => (
   <i
     className={`${name}`}
@@ -21,11 +21,11 @@ export const IconBase: React.StatelessComponent<IconProps> = ({
 
 const styles = {
   all: {
-    display: "inline-block"
+    display: "inline-block",
   },
   before: {
-    marginRight: 6
-  }
+    marginRight: 6,
+  },
 };
 
 export const Icon = Radium(IconBase);

@@ -1,5 +1,5 @@
 import * as React from "react";
-import Radium = require("radium");
+import Radium from "radium";
 import { DragSource, DropTarget } from "react-dnd";
 
 import { DropdownArrow, EntityIcon } from "../components";

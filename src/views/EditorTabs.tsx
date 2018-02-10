@@ -1,5 +1,5 @@
 import * as React from "react";
-import pure from "recompose/pure";
+import { pure } from "recompose";
 
 import { Loader } from "../components/Loader";
 import { StatusEffect } from "../components/StatusEffect";

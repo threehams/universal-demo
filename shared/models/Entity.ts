@@ -1,4 +1,5 @@
 export interface Entity {
+  type: "entity";
   components: string[];
   currentHealth?: number;
   currentStorage?: number;

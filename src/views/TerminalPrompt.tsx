@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { connect } from "react-redux";
-import Radium = require("radium");
+import Radium from "radium";
 
 import * as commandActions from "../actions/commandActions";
 import { AutocompleteItem, State } from "../models";

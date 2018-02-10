@@ -1,5 +1,5 @@
 import * as React from "react";
-import Radium = require("radium");
+import Radium from "radium";
 
 import { Icon } from "../components/Icon";
 

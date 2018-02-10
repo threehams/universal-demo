@@ -1,6 +1,6 @@
-import * as React from "react";
+import React, { CSSProperties } from "react";
 import { connect } from "react-redux";
-import Radium = require("radium");
+import Radium from "radium";
 import { State } from "../models";
 
 import { StatusEffect } from "../components/StatusEffect";
@@ -46,7 +46,7 @@ export const TerminalHistory = connect((state: State) => ({
   history: state.command.history,
 }))(Radium(TerminalHistoryBase));
 
-const styles = {
+const styles: { [key: string]: CSSProperties } = {
   container: {
     flex: "1 1 auto",
     overflowY: "auto",

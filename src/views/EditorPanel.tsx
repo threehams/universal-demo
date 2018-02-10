@@ -1,8 +1,7 @@
 import { List } from "immutable";
 import * as React from "react";
-import Radium = require("radium");
-import ReactMarkdown = require("react-markdown");
-import pure from "recompose/pure";
+import Radium from "radium";
+import ReactMarkdown from "react-markdown";
 
 import {
   MarkdownBlockQuote,
@@ -75,7 +74,7 @@ export class EditorPanelBase extends React.Component<EditorPanelProps, {}> {
   }
 }
 
-export const EditorPanel = pure(Radium(EditorPanelBase));
+export const EditorPanel = Radium(EditorPanelBase);
 
 const styles = {
   container: {

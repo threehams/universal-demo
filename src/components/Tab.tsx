@@ -1,5 +1,5 @@
-import * as React from "react";
-import Radium = require("radium");
+import React, { CSSProperties } from "react";
+import Radium from "radium";
 
 import { Icon } from "../components/Icon";
 import fontStyles from "../styles/font";
@@ -15,7 +15,7 @@ const TabBase: React.StatelessComponent<TabProps> = ({
   active,
   children,
   onClick,
-  onClickClose
+  onClickClose,
 }) => (
   <div style={[styles.container, active ? styles.active : styles.inactive]}>
     <div style={styles.flexContainer}>
@@ -33,9 +33,9 @@ const TabBase: React.StatelessComponent<TabProps> = ({
 
 export const Tab = Radium(TabBase);
 
-export const styles = {
+export const styles: { [key: string]: CSSProperties } = {
   active: {
-    backgroundColor: "white"
+    backgroundColor: "white",
   },
   button: {
     backgroundColor: "transparent",
@@ -43,7 +43,7 @@ export const styles = {
     paddingBottom: 3,
     paddingLeft: 3,
     paddingRight: 3,
-    paddingTop: 3
+    paddingTop: 3,
   },
   container: {
     borderRight: panelStyles.border,
@@ -51,18 +51,18 @@ export const styles = {
     cursor: "default",
     display: "inline-block",
     flex: "1 1 auto",
-    ...fontStyles.default
+    ...fontStyles.default,
   },
   flexContainer: {
     display: "flex",
-    flexFlow: "row nowrap"
+    flexFlow: "row nowrap",
   },
   inactive: {
-    backgroundColor: "#d4d4d4"
+    backgroundColor: "#d4d4d4",
   },
   label: {
     display: "inline-block",
     marginRight: 10,
-    paddingLeft: 15
-  }
+    paddingLeft: 15,
+  },
 };

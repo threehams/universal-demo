@@ -11,14 +11,9 @@ function addPaths(
   const pathSet = { ...entity, owner, path: newPath };
   let newEntities = entities;
   entity.entities.forEach(entityId => {
-    newEntities = addPaths(
-      newEntities.get(entityId),
-      newEntities,
-      owner,
-      newPath,
-    );
+    newEntities = addPaths(newEntities[entityId], newEntities, owner, newPath);
   });
-  return newEntities.set(entity.id, pathSet);
+  return { ...newEntities, [entity.id]: pathSet };
 }
 
 export const entitiesWithPath = createSelector(
@@ -26,12 +21,11 @@ export const entitiesWithPath = createSelector(
   (state: State) => state.ui.player,
   (state: State) => state.location,
   (entities, player, location) => {
-    const playerEntity = entities.get(player);
     let newEntities = entities;
-    if (playerEntity) {
-      playerEntity.entities.forEach(entityId => {
+    if (player) {
+      entities[player].entities.forEach(entityId => {
         newEntities = addPaths(
-          newEntities.get(entityId),
+          newEntities[entityId],
           newEntities,
           "self",
           "self",
@@ -41,7 +35,7 @@ export const entitiesWithPath = createSelector(
     if (location) {
       location.entities.forEach(entityId => {
         newEntities = addPaths(
-          newEntities.get(entityId),
+          newEntities[entityId],
           newEntities,
           "floor",
           "floor",

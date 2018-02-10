@@ -56,7 +56,10 @@ export const selectItem = (
       const selectedId = state.ui.selectedItems[0];
       const first = entityList.findIndex(id => id === selectedId);
       const last = entityList.findIndex(id => id === selectId);
-      const result = entityList.slice(Math.min(first, last), Math.max(first, last) + 1;
+      const result = entityList.slice(
+        Math.min(first, last),
+        Math.max(first, last) + 1,
+      );
       return first < last ? result : result.reverse();
     };
 
