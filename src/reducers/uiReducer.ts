@@ -49,7 +49,7 @@ type Actions =
   | PlayerSetActiveView
   | ResizePanel;
 
-export const uiReducer = (state = INITIAL_STATE, action: Actions) => {
+export const uiReducer = (state = INITIAL_STATE, action: Actions): Ui => {
   switch (action.type) {
     case "EDITOR_ADD_VIEW":
       return addView(state, action.payload.id);

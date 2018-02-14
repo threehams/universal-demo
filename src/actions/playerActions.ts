@@ -18,11 +18,13 @@ export interface InventorySelectItems {
 export interface PlayerSetActiveView {
   type: "PLAYER_SET_ACTIVE_VIEW";
   payload: {
-    name: string;
+    name: "inventory" | "character";
   };
 }
 
-export const setActiveView = (name: string): PlayerSetActiveView => ({
+export const setActiveView = (
+  name: "inventory" | "character",
+): PlayerSetActiveView => ({
   payload: {
     name,
   },

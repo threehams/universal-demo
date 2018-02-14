@@ -46,12 +46,6 @@ module.exports = {
   },
   plugins: [
     new ExtractCssChunks(),
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ["bootstrap"], // needed to put webpack bootstrap code before chunks
-      filename: "[name].js",
-      minChunks: Infinity,
-    }),
-
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({

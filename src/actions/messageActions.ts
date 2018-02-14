@@ -1,6 +1,7 @@
 import { Dispatch } from "redux";
 
 import { setState } from "../../shared/actions/messageActions";
+export { setState } from "../../shared/actions/messageActions";
 import { State, StateDelta } from "../models";
 
 export const setInitialState = (state: StateDelta) => {

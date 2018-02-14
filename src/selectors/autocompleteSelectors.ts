@@ -1,13 +1,8 @@
 import { createSelector } from "reselect";
+import { flatMap } from "lodash";
 
 import { Allowed, AllowedObjectType, AutocompleteItem, State } from "../models";
 import * as entitySelectors from "./entitySelectors";
-
-const INSTANCE_TYPES = {
-  command: Command,
-  entity: Entity,
-  exit: Exit,
-};
 
 function compare(a: string | boolean | number, b: string | boolean | number) {
   if (a > b) {
@@ -31,7 +26,7 @@ function applyAllowedOwners(objects: AutocompleteItem[], owners: string[]) {
   }
 
   return objects.filter(object => {
-    return object instanceof Entity && owners.includes(object.owner);
+    return object.type === "entity" && owners.includes(object.owner);
   });
 }
 
@@ -41,7 +36,7 @@ function applyAllowedStates(objects: AutocompleteItem[], states: string[]) {
   }
 
   return objects.filter(object => {
-    return object instanceof Entity && !!states.intersect(object.states).length;
+    return object.type === "entity" && !!states.intersect(object.states).length;
   });
 }
 
@@ -56,7 +51,7 @@ function applyAllowedComponents(
   // Allow object if it includes any of the expected components.
   return objects.filter(object => {
     if (
-      !(object instanceof Entity) ||
+      !(object.type === "entity") ||
       !object.components ||
       !object.components.length
     ) {
@@ -86,7 +81,7 @@ function applyAllowedTypes(
   return objects.filter(object => {
     let found = false;
     types.forEach(type => {
-      if (object instanceof INSTANCE_TYPES[type]) {
+      if (object.type === type) {
         found = true;
       }
     });
@@ -188,11 +183,11 @@ export const autocompleteFragment = createSelector(
 const sortedOptions = createSelector(
   entitySelectors.entitiesWithPath,
   (state: State) => state.command.available,
-  (state: State) => state.location.exits || List([]),
+  (state: State) => state.location.exits || [],
   (entities, commands, exits): AutocompleteItem[] => {
-    return Seq.Indexed(entities.values())
-      .concat(List(commands))
-      .concat(exits.map(exit => new Exit({ name: exit })))
+    const result: AutocompleteItem[] = Object.values(entities)
+      .concat(commands)
+      .concat(exits.map(exit => ({ name: exit })))
       .sort((a, b) => {
         // reminder:
         // Return 0 if the elements should not be swapped.
@@ -201,7 +196,7 @@ const sortedOptions = createSelector(
 
         // Sort exits first, then path, then name.
         return (
-          compare(b instanceof Exit, a instanceof Exit) ||
+          compare(b.type === "exit", a.type === "exit") ||
           compare(a.path, b.path) ||
           compare(a.name, b.name)
         );
@@ -231,7 +226,7 @@ export const availableOptions = createSelector(
       );
     }
 
-    const filtered = allowed.flatMap((allow: Allowed) =>
+    const filtered = flatMap(allowed, (allow: Allowed) =>
       applyAllowed(filteredByFragment, allow),
     );
 

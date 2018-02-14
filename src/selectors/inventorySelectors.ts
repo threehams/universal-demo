@@ -40,7 +40,7 @@ export const list = createSelector(
 
     function entityIds(owner: "self" | "floor"): string[] {
       if (owner === "self") {
-        return entities.ui.player.entities || [];
+        return ui.player ? entities[ui.player].entities : [];
       } else if (owner === "floor") {
         return location.entities || [];
       }

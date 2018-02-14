@@ -6,8 +6,8 @@ import {
   AllowedObjectType,
   Command,
   CommandPart,
-  Entity
-} from "../records";
+  Entity,
+} from "../models";
 import * as messageActions from "./messageActions";
 
 describe("messageActions", () => {
@@ -25,13 +25,13 @@ describe("messageActions", () => {
                     names: ["open"],
                     owners: ["floor"],
                     states: ["unlocked"],
-                    types: ["entity"] as AllowedObjectType[]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+                    types: ["entity"] as AllowedObjectType[],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       };
       const expected = Set([
         new Command({
@@ -44,15 +44,15 @@ describe("messageActions", () => {
                   names: Set(["open"]),
                   owners: Set(["floor"]),
                   states: Set(["unlocked"]),
-                  types: Set<AllowedObjectType>(["entity"])
-                })
-              ])
-            })
-          ])
-        })
+                  types: Set<AllowedObjectType>(["entity"]),
+                }),
+              ]),
+            }),
+          ]),
+        }),
       ]);
       expect(
-        messageActions.setState(stateData).payload.availableCommands
+        messageActions.setState(stateData).payload.availableCommands,
       ).to.equal(expected);
     });
   });
@@ -66,9 +66,9 @@ describe("messageActions", () => {
             entities: ["2"],
             id: "1",
             name: "thing",
-            states: ["attacking"]
-          }
-        }
+            states: ["attacking"],
+          },
+        },
       };
 
       const expected = Map({
@@ -77,11 +77,11 @@ describe("messageActions", () => {
           entities: List(["2"]),
           id: "1",
           name: "thing",
-          states: Set(["attacking"])
-        })
+          states: Set(["attacking"]),
+        }),
       });
       expect(messageActions.setState(stateData).payload.entities).to.equal(
-        expected
+        expected,
       );
     });
   });

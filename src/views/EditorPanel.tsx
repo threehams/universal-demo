@@ -1,4 +1,3 @@
-import { List } from "immutable";
 import * as React from "react";
 import Radium from "radium";
 import ReactMarkdown from "react-markdown";
@@ -16,20 +15,22 @@ import {
 import { MarkdownLinkContainer } from "./MarkdownLink";
 
 interface EditorPanelProps {
-  history: List<string>;
+  history: string[];
 }
 
 export class EditorPanelBase extends React.Component<EditorPanelProps, {}> {
-  private container: HTMLDivElement;
+  private container: HTMLDivElement | null;
 
   public componentDidUpdate() {
-    this.container.scrollTop = this.container.scrollHeight;
+    if (this.container) {
+      this.container.scrollTop = this.container.scrollHeight;
+    }
   }
 
   public render() {
     const { history } = this.props;
     const marginLeft = Math.ceil(
-      Math.ceil((history.size + 1).toString().length) * 7.5,
+      Math.ceil((history.length + 1).toString().length) * 7.5,
     );
     const markdownProps = {
       className: "markdown",
