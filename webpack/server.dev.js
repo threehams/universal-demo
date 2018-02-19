@@ -5,7 +5,7 @@ const webpack = require("webpack");
 const res = p => path.resolve(__dirname, p);
 
 const nodeModules = res("../node_modules");
-const entry = res("../server/render.tsx");
+const entry = res("../server/index.ts");
 const output = res("../buildServer");
 
 // if you're specifying externals to leave unbundled, you need to tell Webpack

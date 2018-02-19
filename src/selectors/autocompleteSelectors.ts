@@ -143,6 +143,7 @@ const commandAllowed = createSelector(
   (state: State) => state.command.available,
   (state: State) => state.command.cursorIndex,
   (current, available, cursorIndex) => {
+    return [];
     const parts = current.split(/ +/);
     if (parts.length === 1) {
       return defaultFilters;
@@ -185,6 +186,7 @@ const sortedOptions = createSelector(
   (state: State) => state.command.available,
   (state: State) => state.location.exits || [],
   (entities, commands, exits): AutocompleteItem[] => {
+    return [];
     const result: AutocompleteItem[] = Object.values(entities)
       .concat(commands)
       .concat(exits.map(exit => ({ name: exit })))
@@ -248,6 +250,6 @@ export const selectedOption = createSelector(
     if (options.includes(selected)) {
       return selected;
     }
-    return options.first();
+    return options[0];
   },
 );

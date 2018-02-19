@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "allowJs": false,
+    "allowJs": true,
     "experimentalDecorators": false,
     "jsx": "react",
-    "module": "commonjs",
+    "module": "es2015",
     "outDir": "tsDist",
     "target": "es5",
     "moduleResolution": "node",

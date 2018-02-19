@@ -42,12 +42,13 @@ interface Message {
   };
 }
 
-const startServer = server => {
+export const startServer = server => {
   const webSocketServer = new WebSocket.Server({ server });
   const store = configureStore();
   store.dispatch(messageActions.setState(fixtureServerState));
-  webSocketServer.on("connection", (socket) => socketHandler(socket, store));
-}
+  webSocketServer.on("connection", socket => socketHandler(socket, store));
+  return webSocketServer;
+};
 
 const socketHandler = (webSocket: WebSocket, store: Store<State>) => {
   const userId = "17";
@@ -177,7 +178,7 @@ const socketHandler = (webSocket: WebSocket, store: Store<State>) => {
     webSocket.removeAllListeners("close");
     webSocket.removeAllListeners("message");
   });
-});
+};
 
 function getInitialState(state: State, userId: string) {
   function getEntityTree(entityIds: string[]): string[] {

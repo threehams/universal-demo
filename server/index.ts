@@ -1,5 +1,5 @@
 require("colors");
-const express = require("express");
+import express from "express";
 const webpack = require("webpack");
 const noFavicon = require("express-no-favicons");
 const webpackDevMiddleware = require("webpack-dev-middleware");
@@ -14,6 +14,12 @@ const publicPath = clientConfig.output.publicPath;
 const outputPath = clientConfig.output.path;
 const DEV = process.env.NODE_ENV === "development";
 const app = express();
+const socket = require("./socket");
+
+// HMR
+let currentSocket = socket;
+let socketServer: typeof socket;
+
 app.use(noFavicon());
 
 let isBuilt = false;
@@ -33,6 +39,19 @@ if (DEV) {
   app.use(webpackDevMiddleware(compiler, options));
   app.use(webpackHotMiddleware(clientCompiler));
   app.use(webpackHotServerMiddleware(compiler));
+  if (module.hot) {
+    module.hot.accept("./socket", () => {
+      if (socketServer) {
+        socketServer.close(function() {
+          socketServer = socket.startServer(app);
+          currentSocket = socket;
+        });
+      } else {
+        socketServer = socket.startServer(app);
+        currentSocket = socket;
+      }
+    });
+  }
 
   compiler.plugin("done", done);
 } else {

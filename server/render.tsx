@@ -4,7 +4,6 @@ import { App } from "../src/views/App";
 import { Stats } from "webpack";
 
 export default ({ clientStats }) => (req, res) => {
-  console.log(req);
   res.send(
     `<!doctype html>
       <html>
