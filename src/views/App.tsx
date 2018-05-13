@@ -1,11 +1,10 @@
-import * as React from "react";
+import React from "react";
 import { DragDropContext } from "react-dnd";
 import * as Html5Backend from "react-dnd-html5-backend";
 import { Provider } from "react-redux";
 import { Store } from "redux";
 
 import { State } from "../models";
-import { Layout } from "./Layout";
 
 interface AppProps {
   store: Store<State>;
@@ -16,7 +15,7 @@ class BaseApp extends React.Component<AppProps, {}> {
   public render() {
     return (
       <Provider store={this.props.store}>
-        <Layout />
+        <div />
       </Provider>
     );
   }

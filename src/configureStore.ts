@@ -19,15 +19,16 @@ const socketMiddleware = (socket: WebSocket) => {
   };
 };
 
-export const configureStore = (socket: WebSocket, initialState: State) => {
+export const configureStore = (
+  socket: WebSocket,
+  initialState: State | null | void,
+) => {
   // tslint:disable-next-line no-any
   // const win: any = window;
   const withDevTools = window.devToolsExtension
     ? window.devToolsExtension()(createStore)
     : createStore;
-  const withMiddleware = applyMiddleware(thunk, socketMiddleware(socket))(
-    withDevTools,
-  );
+  const withMiddleware = applyMiddleware(thunk)(withDevTools);
   // TODO figure out why this complains about async actions
   const store: Store<State> = withMiddleware(
     rootReducer,
