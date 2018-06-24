@@ -1,14 +1,30 @@
 // Import only needed polyfills - saves lots of space and bundling time
 import React from "react";
 import { hydrate } from "react-dom";
-
+import { routerForBrowser } from "redux-little-router";
+import { combineReducers, createStore, compose, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
 import { AppContainer } from "react-hot-loader";
+
 import { App } from "./views/App";
+import { routes } from "./routes";
+
+const { reducer, enhancer, middleware } = routerForBrowser({ routes });
+
+declare var __INITIAL_STATE__: any;
+
+const store = createStore(
+  combineReducers({ router: reducer }),
+  __INITIAL_STATE__,
+  compose(enhancer, applyMiddleware(middleware)),
+);
 
 hydrate(
-  <AppContainer>
-    <App />
-  </AppContainer>,
+  <Provider store={store}>
+    <AppContainer>
+      <App />
+    </AppContainer>
+  </Provider>,
   document.getElementById("root"),
 );
 
