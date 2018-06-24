@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "experimentalDecorators": false,
+    "jsx": "react",
+    "module": "commonjs",
+    "outDir": "tsDist",
+    "target": "es5",
+    "moduleResolution": "node",
+    "strict": true,
+    "suppressImplicitAnyIndexErrors": true,
+    // note that the next two might be very annoying
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "client/**/*",
+    "shared/**/*",
+    "server/**/*",
+    "node_modules/@types/**/*"
+  ]
+}

@@ -1,21 +1,13 @@
-import "./style.css";
-
 // Import only needed polyfills - saves lots of space and bundling time
-import "./polyfills";
-
-import * as React from "react";
-import { render } from "react-dom";
+import React from "react";
+import { hydrate } from "react-dom";
 
 import { AppContainer } from "react-hot-loader";
-import { configureStore } from "./configureStore";
-import { socket } from "./socket";
 import { App } from "./views/App";
 
-const store = configureStore(socket, undefined);
-
-render(
+hydrate(
   <AppContainer>
-    <App store={store} />
+    <App />
   </AppContainer>,
   document.getElementById("root"),
 );
@@ -26,9 +18,9 @@ declare var module: { hot: any };
 if (module.hot) {
   module.hot.accept("./views/App", () => {
     const App = require("./views/App").App;
-    render(
+    hydrate(
       <AppContainer>
-        <App store={store} />
+        <App />
       </AppContainer>,
       document.getElementById("root"),
     );
