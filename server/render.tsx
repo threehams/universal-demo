@@ -9,15 +9,7 @@ export default ({ clientStats }: any) => (req: any, res: any) => {
   const app = ReactDOM.renderToString(<App />);
   const chunkNames = flushChunkNames();
 
-  const { js, styles, cssHash, scripts, stylesheets } = flushChunks(
-    clientStats,
-    { chunkNames },
-  );
-
-  console.log("PATH", req.path);
-  console.log("DYNAMIC CHUNK NAMES RENDERED", chunkNames);
-  console.log("SCRIPTS SERVED", scripts);
-  console.log("STYLESHEETS SERVED", stylesheets);
+  const { js, styles, cssHash } = flushChunks(clientStats, { chunkNames });
 
   res.send(
     `<!doctype html>
