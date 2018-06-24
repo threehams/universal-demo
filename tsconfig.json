@@ -12,10 +12,5 @@
     // note that the next two might be very annoying
     "allowSyntheticDefaultImports": true
   },
-  "include": [
-    "client/**/*",
-    "shared/**/*",
-    "server/**/*",
-    "node_modules/@types/**/*"
-  ]
+  "include": ["src/**/*", "server/**/*", "node_modules/@types/**/*"]
 }

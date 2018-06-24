@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const webpack = require("webpack");
+const ExtractCssChunks = require("extract-css-chunks-webpack-plugin");
 
 const res = p => path.resolve(__dirname, p);
 
@@ -24,6 +25,7 @@ externals["react-dom/server"] = "commonjs react-dom/server";
 
 module.exports = {
   name: "server",
+  mode: "development",
   target: "node",
   // devtool: 'source-map',
   devtool: "eval",
@@ -44,15 +46,7 @@ module.exports = {
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: "css-loader/locals",
-            options: {
-              modules: true,
-              localIdentName: "[name]__[local]--[hash:base64:5]",
-            },
-          },
-        ],
+        use: [ExtractCssChunks.loader, "css-loader"],
       },
     ],
   },
@@ -60,6 +54,11 @@ module.exports = {
     extensions: [".js", ".css", ".ts", ".tsx"],
   },
   plugins: [
+    new ExtractCssChunks({
+      filename: "[name].css",
+      chunkFilename: "[id].css",
+      hot: true,
+    }),
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 1,
     }),

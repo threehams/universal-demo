@@ -4,8 +4,8 @@ const ExtractCssChunks = require("extract-css-chunks-webpack-plugin");
 
 module.exports = {
   name: "client",
+  mode: "development",
   target: "web",
-  // devtool: 'source-map',
   devtool: "eval",
   entry: [
     "webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=false&quiet=false&noInfo=false",
@@ -27,31 +27,33 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ExtractCssChunks.extract({
-          use: [
-            {
-              loader: "css-loader",
-              options: {
-                modules: true,
-                localIdentName: "[name]__[local]--[hash:base64:5]",
-              },
-            },
-          ],
-        }),
+        use: [ExtractCssChunks.loader, "css-loader"],
       },
     ],
   },
   resolve: {
     extensions: [".js", ".css", ".ts", ".tsx"],
   },
+  optimization: {
+    runtimeChunk: {
+      name: "bootstrap",
+    },
+    splitChunks: {
+      chunks: "initial", // <-- The key to this
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          name: "vendor",
+        },
+      },
+    },
+  },
   plugins: [
-    new ExtractCssChunks(),
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ["bootstrap"], // needed to put webpack bootstrap code before chunks
-      filename: "[name].js",
-      minChunks: Infinity,
+    new ExtractCssChunks({
+      filename: "[name].css",
+      chunkFilename: "[id].css",
+      hot: true,
     }),
-
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({

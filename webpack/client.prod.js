@@ -1,9 +1,11 @@
 const path = require("path");
 const webpack = require("webpack");
 const ExtractCssChunks = require("extract-css-chunks-webpack-plugin");
+const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
   name: "client",
+  mode: "production",
   target: "web",
   devtool: "source-map",
   entry: [path.resolve(__dirname, "../src/index.tsx")],
@@ -22,49 +24,37 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ExtractCssChunks.extract({
-          use: [
-            {
-              loader: "css-loader",
-              options: {
-                modules: true,
-                localIdentName: "[name]__[local]--[hash:base64:5]",
-              },
-            },
-          ],
-        }),
+        use: [ExtractCssChunks.loader, "css-loader"],
       },
     ],
   },
   resolve: {
     extensions: [".js", ".css", ".ts", ".tsx"],
   },
+  optimization: {
+    minimizer: [
+      new UglifyJSPlugin({
+        uglifyOptions: {
+          output: {
+            comments: false,
+            ascii_only: true,
+          },
+          compress: {
+            comparisons: false,
+          },
+        },
+      }),
+    ],
+  },
   plugins: [
-    new ExtractCssChunks(),
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ["bootstrap"], // needed to put webpack bootstrap code before chunks
-      filename: "[name].[chunkhash].js",
-      minChunks: Infinity,
+    new ExtractCssChunks({
+      filename: "[name].[hash].css",
+      chunkFilename: "[id].[hash].css",
     }),
-
     new webpack.DefinePlugin({
       "process.env": {
         NODE_ENV: JSON.stringify("production"),
       },
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        screw_ie8: true,
-        warnings: false,
-      },
-      mangle: {
-        screw_ie8: true,
-      },
-      output: {
-        screw_ie8: true,
-        comments: false,
-      },
-      sourceMap: true,
     }),
     new webpack.HashedModuleIdsPlugin(), // not needed for strategy to work (just good practice)
   ],
