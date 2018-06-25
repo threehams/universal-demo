@@ -1,6 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const ExtractCssChunks = require("extract-css-chunks-webpack-plugin");
+const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 
 const res = p => path.resolve(__dirname, p);
 
@@ -15,7 +16,7 @@ module.exports = {
   entry: [entry],
   output: {
     path: output,
-    filename: "[name].js",
+    filename: "main.js",
     libraryTarget: "commonjs2",
   },
   module: {
@@ -33,9 +34,11 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".js", ".css", ".ts", ".tsx"],
+    extensions: [".js", ".ts", ".tsx", ".css"],
   },
   plugins: [
+    new webpack.optimize.ModuleConcatenationPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new ExtractCssChunks({
       filename: "[name].[hash].css",
       chunkFilename: "[id].[hash].css",

@@ -29,9 +29,21 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".js", ".css", ".ts", ".tsx"],
+    extensions: [".js", ".ts", ".tsx", ".css"],
   },
   optimization: {
+    runtimeChunk: {
+      name: "bootstrap",
+    },
+    splitChunks: {
+      chunks: "initial", // <-- The key to this
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          name: "vendor",
+        },
+      },
+    },
     minimizer: [
       new UglifyJSPlugin({
         uglifyOptions: {
@@ -51,6 +63,8 @@ module.exports = {
       filename: "[name].[hash].css",
       chunkFilename: "[id].[hash].css",
     }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.DefinePlugin({
       "process.env": {
         NODE_ENV: JSON.stringify("production"),

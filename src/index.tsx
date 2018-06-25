@@ -11,12 +11,13 @@ import { routes } from "./routes";
 
 const { reducer, enhancer, middleware } = routerForBrowser({ routes });
 
-declare var __INITIAL_STATE__: any;
+const composeEnhancers =
+  window["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] || compose;
 
 const store = createStore(
   combineReducers({ router: reducer }),
-  __INITIAL_STATE__,
-  compose(enhancer, applyMiddleware(middleware)),
+  window["__INITIAL_STATE__"],
+  composeEnhancers(enhancer, applyMiddleware(middleware)),
 );
 
 hydrate(
@@ -35,9 +36,11 @@ if (module.hot) {
   module.hot.accept("./views/App", () => {
     const App = require("./views/App").App;
     hydrate(
-      <AppContainer>
-        <App />
-      </AppContainer>,
+      <Provider store={store}>
+        <AppContainer>
+          <App />
+        </AppContainer>
+      </Provider>,
       document.getElementById("root"),
     );
   });

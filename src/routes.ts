@@ -1,8 +1,8 @@
 export const routes = {
   "/": {
     title: "Home",
-    "/foo": {
-      title: "Foo",
+    "/about": {
+      title: "About Us",
     },
   },
 };

@@ -3,14 +3,15 @@
     "allowJs": false,
     "experimentalDecorators": false,
     "jsx": "react",
-    "module": "commonjs",
+    "module": "esnext",
     "outDir": "tsDist",
     "target": "es5",
     "moduleResolution": "node",
     "strict": true,
     "suppressImplicitAnyIndexErrors": true,
     // note that the next two might be very annoying
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "lib": ["dom", "esnext"]
   },
   "include": ["src/**/*", "server/**/*", "node_modules/@types/**/*"]
 }

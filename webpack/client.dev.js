@@ -1,5 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
+const WriteFilePlugin = require("write-file-webpack-plugin"); // here so you can see what chunks are built
 const ExtractCssChunks = require("extract-css-chunks-webpack-plugin");
 
 module.exports = {
@@ -32,7 +33,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".js", ".css", ".ts", ".tsx"],
+    extensions: [".js", ".ts", ".tsx", ".css"],
   },
   optimization: {
     runtimeChunk: {
@@ -49,11 +50,8 @@ module.exports = {
     },
   },
   plugins: [
-    new ExtractCssChunks({
-      filename: "[name].css",
-      chunkFilename: "[id].css",
-      hot: true,
-    }),
+    new WriteFilePlugin(),
+    new ExtractCssChunks({ hot: true }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
