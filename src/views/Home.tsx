@@ -6,7 +6,7 @@ import "./Home.css";
 const Home: React.SFC<{}> = () => {
   return (
     <p className="home">
-      Welcome to die! <Link href="/about">Learn more about die</Link>
+      You are home. Home is red. <Link href="/about">Learn more about us.</Link>
     </p>
   );
 };

@@ -26,8 +26,7 @@ module.exports = {
   name: "server",
   mode: "development",
   target: "node",
-  // devtool: 'source-map',
-  devtool: "eval",
+  devtool: "inline-source-map",
   entry: [entry],
   externals: [
     nodeExternals({

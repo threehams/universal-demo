@@ -36,7 +36,7 @@ if (DEV) {
 
   app.use(devMiddleware);
   app.use(webpackHotMiddleware(clientCompiler));
-  app.use(webpackHotServerMiddleware(compiler));
+  app.use(webpackHotServerMiddleware(compiler, { chunkName: "Home" }));
 
   devMiddleware.waitUntilValid(done);
 } else {
