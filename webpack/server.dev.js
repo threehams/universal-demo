@@ -27,7 +27,7 @@ module.exports = {
   mode: "development",
   target: "node",
   devtool: "inline-source-map",
-  entry: [entry],
+  entry: ["regenerator-runtime/runtime.js", entry],
   externals: [
     nodeExternals({
       whitelist: [

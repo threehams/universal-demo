@@ -9,6 +9,7 @@ module.exports = {
   target: "web",
   devtool: "eval",
   entry: [
+    "regenerator-runtime/runtime.js",
     "webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=false&quiet=false&noInfo=false",
     "react-hot-loader/patch",
     path.resolve(__dirname, "../src/index.tsx"),

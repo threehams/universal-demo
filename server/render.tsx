@@ -2,24 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom/server";
 import { clearChunks, flushChunkNames } from "react-universal-component/server";
 import flushChunks from "webpack-flush-chunks";
-import { routerForExpress } from "redux-little-router";
 import { Provider } from "react-redux";
-import { combineReducers, createStore, compose, applyMiddleware } from "redux";
 
 import { App } from "../src/views/App";
-import { routes } from "../src/routes";
+import { configureStore } from "./configureStore";
 
-export default ({ clientStats }: any) => (request: any, response: any) => {
-  const { reducer, middleware, enhancer } = routerForExpress({
-    routes,
-    request,
-  });
-
-  const store = createStore(
-    combineReducers({ router: reducer }),
-    {},
-    compose(enhancer, applyMiddleware(middleware)),
-  );
+const render = ({ clientStats }: any) => async (
+  request: any,
+  response: any,
+) => {
+  const store = await configureStore(request);
 
   clearChunks();
   const app = ReactDOM.renderToString(
@@ -50,3 +42,5 @@ export default ({ clientStats }: any) => (request: any, response: any) => {
       </html>`,
   );
 };
+
+export default render;
